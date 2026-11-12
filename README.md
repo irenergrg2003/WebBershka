@@ -1,4 +1,4 @@
 # WebBershka
 
 *Irene Rodríguez RodrIguez*
-**Profesor**
+**Alumna**
