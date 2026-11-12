@@ -3,9 +3,1051 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi primera página web</title>
+    <title>IRENE RODRIGUEZ RODRIGUEZ | Moda Hombre</title>
+    <style>
+        /* RESET Y ESTILOS BASE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --accent-color: #e6ff00; /* Verde ácido estilo streetwear */
+            --gray-light: #f4f4f4;
+            --gray-dark: #757575;
+            --border-color: #e5e5e5;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* HEADER / NAVEGACIÓN */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        header.scrolled {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .gender-links {
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .gender-links a {
+            color: var(--gray-dark);
+            transition: color 0.2s;
+        }
+
+        .gender-links a.active, .gender-links a:hover {
+            color: var(--text-color);
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        .brand-logo {
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--text-color);
+            padding-bottom: 2px;
+        }
+
+        .search-bar input {
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 11px;
+            width: 110px;
+            text-transform: uppercase;
+        }
+
+        .cart-btn {
+            background: none;
+            border: none;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .cart-count {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            padding: 2px 6px;
+            border-radius: 50%;
+            font-size: 10px;
+        }
+
+        /* MENÚ LATERAL DESPLEGABLE (DRAWER) */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: -350px;
+            width: 350px;
+            height: 100vh;
+            background-color: var(--bg-color);
+            z-index: 2000;
+            padding: 24px;
+            transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .side-menu.open {
+            left: 0;
+        }
+
+        .close-menu {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            align-self: flex-end;
+        }
+
+        .side-menu ul {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .side-menu li a {
+            font-size: 22px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            transition: padding-left 0.2s;
+        }
+
+        .side-menu li a:hover {
+            padding-left: 8px;
+            background-color: var(--accent-color);
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1500;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            margin-top: 60px;
+            position: relative;
+            width: 100%;
+            height: 85vh;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: 48px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.85);
+            z-index: -1;
+            transition: transform 8s ease;
+        }
+
+        .hero:hover .hero-bg {
+            transform: scale(1.03);
+        }
+
+        .hero-content {
+            color: #ffffff;
+            max-width: 650px;
+        }
+
+        .hero-tag {
+            background-color: var(--accent-color);
+            color: #000;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 10px;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 0.95;
+            text-transform: uppercase;
+            letter-spacing: -1.5px;
+            margin-bottom: 20px;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            background-color: #ffffff;
+            color: #000000;
+            padding: 14px 32px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .hero-cta:hover {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        /* CATEGORÍAS RÁPIDAS (PILLS) */
+        .quick-categories {
+            padding: 24px;
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            border-bottom: 1px solid var(--border-color);
+            scrollbar-width: none;
+        }
+
+        .quick-categories::-webkit-scrollbar {
+            display: none;
+        }
+
+        .cat-pill {
+            padding: 8px 18px;
+            border: 1px solid var(--text-color);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: transparent;
+        }
+
+        .cat-pill.active, .cat-pill:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        /* GRID EDITORIAL / BANNERS DOBLES */
+        .editorial-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px;
+            padding: 4px;
+        }
+
+        .editorial-card {
+            position: relative;
+            height: 75vh;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: 32px;
+        }
+
+        .editorial-card img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            filter: brightness(0.88);
+            transition: transform 0.6s ease;
+        }
+
+        .editorial-card:hover img {
+            transform: scale(1.04);
+        }
+
+        .editorial-info h2 {
+            color: #fff;
+            font-size: 28px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .editorial-info span {
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-bottom: 2px solid #fff;
+            padding-bottom: 3px;
+        }
+
+        /* CATÁLOGO DE PRODUCTOS */
+        .products-section {
+            padding: 48px 24px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 24px;
+        }
+
+        .section-header h3 {
+            font-size: 20px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px 12px;
+        }
+
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .product-img-wrap {
+            position: relative;
+            aspect-ratio: 3 / 4;
+            background-color: var(--gray-light);
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .product-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .add-quick-btn {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            right: 12px;
+            background-color: rgba(255, 255, 255, 0.95);
+            color: #000;
+            border: 1px solid #000;
+            padding: 10px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.2s ease;
+        }
+
+        .product-card:hover .add-quick-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .add-quick-btn:hover {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--accent-color);
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 6px;
+            text-transform: uppercase;
+        }
+
+        .product-title {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-color);
+            margin-bottom: 4px;
+        }
+
+        .product-price {
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        /* CARRITO LATERAL */
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            max-width: 100vw;
+            height: 100vh;
+            background-color: var(--bg-color);
+            z-index: 2000;
+            padding: 24px;
+            transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border-left: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-drawer.open {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 800;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 12px;
+            border-bottom: 1px solid var(--gray-light);
+            padding-bottom: 12px;
+        }
+
+        .cart-item img {
+            width: 60px;
+            height: 80px;
+            object-fit: cover;
+        }
+
+        .cart-item-info {
+            flex: 1;
+            font-size: 12px;
+        }
+
+        .cart-item-title {
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .remove-item {
+            background: none;
+            border: none;
+            color: var(--gray-dark);
+            font-size: 11px;
+            text-decoration: underline;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .cart-footer {
+            border-top: 1px solid var(--border-color);
+            padding-top: 16px;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 900;
+            font-size: 14px;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            padding: 14px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        /* NEWSLETTER & FOOTER */
+        .newsletter {
+            background-color: var(--gray-light);
+            padding: 64px 24px;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .newsletter h4 {
+            font-size: 22px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .newsletter p {
+            font-size: 12px;
+            color: var(--gray-dark);
+            margin-bottom: 24px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            justify-content: center;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #000;
+            outline: none;
+            font-size: 12px;
+        }
+
+        .newsletter-form button {
+            background-color: #000;
+            color: #fff;
+            border: 1px solid #000;
+            padding: 0 24px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        footer {
+            padding: 48px 24px 24px;
+            border-top: 1px solid var(--border-color);
+            font-size: 11px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+
+        .footer-col h5 {
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            font-size: 12px;
+        }
+
+        .footer-col ul {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            color: var(--gray-dark);
+        }
+
+        .footer-col ul a:hover {
+            color: #000;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+            color: var(--gray-dark);
+            text-transform: uppercase;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 960px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .editorial-grid {
+                grid-template-columns: 1fr;
+            }
+            .brand-logo {
+                font-size: 14px;
+                letter-spacing: 1px;
+            }
+            .gender-links, .search-bar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .hero {
+                padding: 24px;
+                height: 70vh;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Hola mundo</h1>
+
+    <!-- OVERLAY PARA MENÚS -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- MENÚ LATERAL -->
+    <aside class="side-menu" id="sideMenu">
+        <div>
+            <button class="close-menu" id="closeMenuBtn">✕</button>
+            <ul>
+                <li><a href="#catalogo" onclick="filterProducts('all')">Novedades</a></li>
+                <li><a href="#catalogo" onclick="filterProducts('ropa')">Ropa</a></li>
+                <li><a href="#catalogo" onclick="filterProducts('denim')">Denim & Baggy</a></li>
+                <li><a href="#catalogo" onclick="filterProducts('zapatos')">Zapatos</a></li>
+                <li><a href="#catalogo" onclick="filterProducts('accesorios')">Accesorios</a></li>
+                <li><a href="#catalogo" style="color: #d90000;">Special Prices</a></li>
+            </ul>
+        </div>
+        <div style="font-size: 11px; color: var(--gray-dark); text-transform: uppercase;">
+            IRENE RODRIGUEZ RODRIGUEZ — ESPAÑA / ES
+        </div>
+    </aside>
+
+    <!-- CARRITO LATERAL -->
+    <aside class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <span>Cesta (<span id="drawerCartCount">0</span>)</span>
+            <button class="close-menu" id="closeCartBtn">✕</button>
+        </div>
+        <div class="cart-items" id="cartItemsContainer">
+            <p style="font-size: 12px; color: var(--gray-dark); text-align: center; margin-top: 40px;">Tu cesta está vacía.</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total (IVA incl.)</span>
+                <span id="cartTotal">0,00 €</span>
+            </div>
+            <button class="checkout-btn" onclick="alert('Procesando pedido en IRENE RODRIGUEZ RODRIGUEZ...')">Tramitar pedido</button>
+        </div>
+    </aside>
+
+    <!-- HEADER -->
+    <header id="mainHeader">
+        <div class="nav-left">
+            <button class="menu-btn" id="openMenuBtn">☰ Menú</button>
+            <nav class="gender-links">
+                <a href="#">Mujer</a>
+                <a href="#" class="active">Hombre</a>
+                <a href="#">BSK Teen</a>
+            </nav>
+        </div>
+
+        <a href="#" class="brand-logo">IRENE RODRIGUEZ RODRIGUEZ</a>
+
+        <div class="nav-right">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Buscar...">
+            </div>
+            <a href="#">Iniciar sesión</a>
+            <button class="cart-btn" id="openCartBtn">
+                Cesta <span class="cart-count" id="headerCartCount">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- HERO BANNER -->
+    <section class="hero">
+        <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=1800&q=80" alt="Colección Hombre Streetwear" class="hero-bg">
+        <div class="hero-content">
+            <span class="hero-tag">New Drop // FW26</span>
+            <h1 class="hero-title">URBAN UTILITY & OVERSIZE</h1>
+            <a href="#catalogo" class="hero-cta">Ver colección</a>
+        </div>
+    </section>
+
+    <!-- CATEGORÍAS RÁPIDAS -->
+    <div class="quick-categories">
+        <button class="cat-pill active" onclick="filterProducts('all', this)">Todo</button>
+        <button class="cat-pill" onclick="filterProducts('ropa', this)">Sudaderas & Chaquetas</button>
+        <button class="cat-pill" onclick="filterProducts('denim', this)">Jeans Baggy</button>
+        <button class="cat-pill" onclick="filterProducts('zapatos', this)">Zapatillas</button>
+        <button class="cat-pill" onclick="filterProducts('accesorios', this)">Accesorios</button>
+    </div>
+
+    <!-- BANNERS EDITORIALES -->
+    <section class="editorial-grid">
+        <a href="#catalogo" class="editorial-card" onclick="filterProducts('denim')">
+            <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=1000&q=80" alt="Denim Collection">
+            <div class="editorial-info">
+                <h2>SUPER BAGGY DENIM</h2>
+                <span>Comprar ahora</span>
+            </div>
+        </a>
+        <a href="#catalogo" class="editorial-card" onclick="filterProducts('ropa')">
+            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1000&q=80" alt="Outerwear">
+            <div class="editorial-info">
+                <h2>HEAVYWEIGHT OUTERWEAR</h2>
+                <span>Descubrir</span>
+            </div>
+        </a>
+    </section>
+
+    <!-- CATÁLOGO DE PRODUCTOS -->
+    <section class="products-section" id="catalogo">
+        <div class="section-header">
+            <h3>Destacados Hombre</h3>
+            <span style="font-size: 11px; color: var(--gray-dark); text-transform: uppercase;" id="productCounter">8 artículos</span>
+        </div>
+
+        <div class="product-grid" id="productGrid">
+            <!-- Los productos se renderizan dinámicamente con JS -->
+        </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="newsletter">
+        <h4>Únete a la comunidad</h4>
+        <p>Suscríbete para recibir un 10% de descuento en tu primera compra y acceso anticipado a drops exclusivos.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('¡Gracias por suscribirte a IRENE RODRIGUEZ RODRIGUEZ!');">
+            <input type="email" placeholder="Introduce tu e-mail" required>
+            <button type="submit">Suscribir</button>
+        </form>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h5>Ayuda</h5>
+                <ul>
+                    <li><a href="#">Comprar online</a></li>
+                    <li><a href="#">Pago</a></li>
+                    <li><a href="#">Envío</a></li>
+                    <li><a href="#">Devoluciones</a></li>
+                    <li><a href="#">Tarjeta Regalo</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Empresa</h5>
+                <ul>
+                    <li><a href="#">Sobre nosotros</a></li>
+                    <li><a href="#">Trabaja con nosotros</a></li>
+                    <li><a href="#">Prensa</a></li>
+                    <li><a href="#">Sostenibilidad</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Políticas</h5>
+                <ul>
+                    <li><a href="#">Política de privacidad</a></li>
+                    <li><a href="#">Condiciones de compra</a></li>
+                    <li><a href="#">Política de cookies</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Síguenos</h5>
+                <ul>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">TikTok</a></li>
+                    <li><a href="#">YouTube</a></li>
+                    <li><a href="#">Spotify</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 IRENE RODRIGUEZ RODRIGUEZ. Todos los derechos reservados.</span>
+            <span>España | Español</span>
+        </div>
+    </footer>
+
+    <script>
+        // DATOS DE PRODUCTOS ESTILO STREETWEAR
+        const products = [
+            {
+                id: 1,
+                name: "Cazadora efecto piel desgaste oversize",
+                price: 49.99,
+                category: "ropa",
+                badge: "NEW",
+                img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=700&q=80"
+            },
+            {
+                id: 2,
+                name: "Jeans super baggy lavado ácido",
+                price: 35.99,
+                category: "denim",
+                badge: "TOP VENTAS",
+                img: "https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?auto=format&fit=crop&w=700&q=80"
+            },
+            {
+                id: 3,
+                name: "Sudadera hoodie boxy fit gráfico",
+                price: 29.99,
+                category: "ropa",
+                badge: "NEW",
+                img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=700&q=80"
+            },
+            {
+                id: 4,
+                name: "Zapatillas volumen suela track",
+                price: 45.99,
+                category: "zapatos",
+                badge: "",
+                img: "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=700&q=80"
+            },
+            {
+                id: 5,
+                name: "Pantalón cargo paracaídas técnico",
+                price: 39.99,
+                category: "ropa",
+                badge: "NEW",
+                img: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=700&q=80"
+            },
+            {
+                id: 6,
+                name: "Gafas de sol envolventes deportivas",
+                price: 15.99,
+                category: "accesorios",
+                badge: "",
+                img: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=700&q=80"
+            },
+            {
+                id: 7,
+                name: "Jeans skater carpenter bolsillos",
+                price: 35.99,
+                category: "denim",
+                badge: "NEW",
+                img: "https://images.unsplash.com/photo-1604176354204-9268737828e4?auto=format&fit=crop&w=700&q=80"
+            },
+            {
+                id: 8,
+                name: "Bolso bandolera nylon multipockets",
+                price: 19.99,
+                category: "accesorios",
+                badge: "",
+                img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=700&q=80"
+            }
+        ];
+
+        let cart = [];
+
+        // RENDERIZAR PRODUCTOS
+        const productGrid = document.getElementById('productGrid');
+        const productCounter = document.getElementById('productCounter');
+
+        function renderProducts(items) {
+            productGrid.innerHTML = '';
+            productCounter.textContent = `${items.length} artículos`;
+
+            items.forEach(prod => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div class="product-img-wrap">
+                        ${prod.badge ? `<span class="product-badge">${prod.badge}</span>` : ''}
+                        <img src="${prod.img}" alt="${prod.name}">
+                        <button class="add-quick-btn" onclick="addToCart(${prod.id})">+ Añadir talla M</button>
+                    </div>
+                    <div class="product-title">${prod.name}</div>
+                    <div class="product-price">${prod.price.toFixed(2).replace('.', ',')} €</div>
+                `;
+                productGrid.appendChild(card);
+            });
+        }
+
+        // FILTRADO DE PRODUCTOS
+        function filterProducts(category, btnElement = null) {
+            if (btnElement) {
+                document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
+                btnElement.classList.add('active');
+            }
+            closeAllDrawers();
+
+            if (category === 'all') {
+                renderProducts(products);
+            } else {
+                const filtered = products.filter(p => p.category === category);
+                renderProducts(filtered);
+            }
+        }
+
+        // BUSCADOR EN TIEMPO REAL
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = products.filter(p => p.name.toLowerCase().includes(term));
+            renderProducts(filtered);
+        });
+
+        // LÓGICA DEL CARRITO
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            cart.push(product);
+            updateCartUI();
+            openCart();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cartItemsContainer');
+            const headerCount = document.getElementById('headerCartCount');
+            const drawerCount = document.getElementById('drawerCartCount');
+            const totalEl = document.getElementById('cartTotal');
+
+            headerCount.textContent = cart.length;
+            drawerCount.textContent = cart.length;
+
+            if (cart.length === 0) {
+                container.innerHTML = `<p style="font-size: 12px; color: var(--gray-dark); text-align: center; margin-top: 40px;">Tu cesta está vacía.</p>`;
+                totalEl.textContent = '0,00 €';
+                return;
+            }
+
+            container.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price;
+                const div = document.createElement('div');
+                div.className = 'cart-item';
+                div.innerHTML = `
+                    <img src="${item.img}" alt="${item.name}">
+                    <div class="cart-item-info">
+                        <div class="cart-item-title">${item.name}</div>
+                        <div>Talla: M</div>
+                        <div style="font-weight: 800; margin-top: 4px;">${item.price.toFixed(2).replace('.', ',')} €</div>
+                        <button class="remove-item" onclick="removeFromCart(${index})">Eliminar</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+
+            totalEl.textContent = `${total.toFixed(2).replace('.', ',')} €`;
+        }
+
+        // CONTROL DE MENÚS LATERALES Y HEADER
+        const sideMenu = document.getElementById('sideMenu');
+        const cartDrawer = document.getElementById('cartDrawer');
+        const overlay = document.getElementById('overlay');
+
+        function openMenu() {
+            sideMenu.classList.add('open');
+            overlay.classList.add('active');
+        }
+
+        function openCart() {
+            cartDrawer.classList.add('open');
+            overlay.classList.add('active');
+        }
+
+        function closeAllDrawers() {
+            sideMenu.classList.remove('open');
+            cartDrawer.classList.remove('open');
+            overlay.classList.remove('active');
+        }
+
+        document.getElementById('openMenuBtn').addEventListener('click', openMenu);
+        document.getElementById('closeMenuBtn').addEventListener('click', closeAllDrawers);
+        document.getElementById('openCartBtn').addEventListener('click', openCart);
+        document.getElementById('closeCartBtn').addEventListener('click', closeAllDrawers);
+        overlay.addEventListener('click', closeAllDrawers);
+
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('mainHeader');
+            header.classList.toggle('scrolled', window.scrollY > 20);
+        });
+
+        // INICIALIZAR
+        renderProducts(products);
+    </script>
 </body>
 </html>
